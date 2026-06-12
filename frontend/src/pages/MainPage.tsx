@@ -83,6 +83,9 @@ import { SafetySignalCascadeOverlay } from '@/components/cross-module/SafetySign
 
 // Portfolio is statically imported (always the initial screen)
 import { PortfolioScreen } from '@/components/screens/PortfolioScreen';
+// Vite ESM: former require() calls converted to static imports
+import { HomeScreen } from '@/components/screens/HomeScreen';
+import { BDScreen } from '@/components/screens/BDScreen';
 
 // Dynamically import other screens with loading skeletons
 // Heavy screens (>100KB) use ssr: false for faster client-side rendering
@@ -568,7 +571,6 @@ export default function Home() {
 
       // v0.44.53: HomeScreen needs onNavigate instead of filters
       if (moduleId === 'home') {
-        const { HomeScreen } = require('@/components/screens/HomeScreen');
         return (
           <div
             key={moduleId}
@@ -602,7 +604,6 @@ export default function Home() {
 
       // v0.125.92: BD sub-routes pass initialView to switch to the correct tab
       if (moduleId === 'bd-due-diligence' || moduleId === 'bd-data-room') {
-        const { BDScreen } = require('@/components/screens/BDScreen');
         const initialView = moduleId === 'bd-due-diligence' ? 'due-diligence' : 'data-room';
         return (
           <div

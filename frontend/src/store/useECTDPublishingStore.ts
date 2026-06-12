@@ -8,6 +8,7 @@
 // =============================================================================
 
 import { create } from 'zustand';
+import { mockECTDPublishingData } from '../data/ectd-publishing-data';
 import { devtools, subscribeWithSelector } from 'zustand/middleware';
 import { useMemo } from 'react';
 import {
@@ -803,8 +804,6 @@ export const useECTDPublishingStore = create<ECTDPublishingState & ECTDPublishin
       // =========================================================================
       
       loadMockData: () => {
-        // Import mock data
-        const { mockECTDPublishingData } = require('../data/ectd-publishing-data');
         set(mockECTDPublishingData);
       },
       
