@@ -1,7 +1,7 @@
 """Router registry. Each module ports one src/app/api/<domain> route group."""
 from fastapi import FastAPI
 
-from app.routers import audit, auth, documents, haqs, health, products, submissions, users, version
+from app.routers import audit, auth, documents, haqs, health, products, safety, studies, submissions, users, version
 
 
 def register_routers(app: FastAPI) -> None:
@@ -11,6 +11,8 @@ def register_routers(app: FastAPI) -> None:
     app.include_router(haqs.router)
     app.include_router(health.router)
     app.include_router(products.router)
+    app.include_router(safety.router)
+    app.include_router(studies.router)
     app.include_router(submissions.router)
     app.include_router(users.router)
     app.include_router(version.router)
