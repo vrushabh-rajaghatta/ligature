@@ -1,0 +1,917 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   CSS DESIGN TOKENS — Light mode is the baseline (:root default)
+   Dark / High-Contrast overrides applied via class on <html>
+   Anti-FOUC: a blocking inline script in layout.tsx applies the correct
+   theme class BEFORE React hydrates, preventing any flash.
+   ============================================================================ */
+
+:root {
+  /* ── Light mode (Ligature Light / all pharma themes base) ── */
+  --surface: #FFFFFF;
+  --surface-elevated: #F8FAFC;
+  --surface-card: #F1F5F9;
+  --surface-hover: #E2E8F0;
+  --border: #CBD5E1;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --accent-blue: #1E90FF;
+  --accent-teal: #0D9488;
+  --accent-green: #059669;
+  --accent-amber: #D97706;
+  --accent-purple: #6D28D9;
+  --accent-red: #DC2626;
+
+  /* Semantic status — light mode */
+  --status-success: #059669;
+  --status-warning: #D97706;
+  --status-error: #DC2626;
+  --status-info: #1E90FF;
+  --status-pending: #6D28D9;
+  --status-neutral: #94A3B8;
+}
+
+/* ── Dark mode overrides ── */
+.theme-dark {
+  --surface: #0D1B2A;
+  --surface-elevated: #1A2D42;
+  --surface-card: #0f172a;
+  --surface-hover: #243B53;
+  --border: #334155;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent-blue: #1E90FF;
+  --accent-teal: #14B8A6;
+  --accent-green: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-purple: #7C3AED;
+  --accent-red: #EF4444;
+
+  /* Semantic status — dark mode */
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+  --status-info: #1E90FF;
+  --status-pending: #7C3AED;
+  --status-neutral: #64748B;
+}
+
+/* ── High-contrast overrides (WCAG AAA) ── */
+.theme-high-contrast {
+  --surface: #000000;
+  --surface-elevated: #1A1A1A;
+  --surface-card: #0D0D0D;
+  --surface-hover: #2A2A2A;
+  --border: #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E5E5E5;
+  --text-muted: #CCCCCC;
+  --accent-blue: #00FFFF;
+  --accent-teal: #FF00FF;
+  --accent-green: #00FF00;
+  --accent-amber: #FFFF00;
+  --accent-purple: #0080FF;
+  --accent-red: #FF0000;
+
+  /* Semantic status — high contrast */
+  --status-success: #00FF00;
+  --status-warning: #FFFF00;
+  --status-error: #FF0000;
+  --status-info: #00FFFF;
+  --status-pending: #0080FF;
+  --status-neutral: #CCCCCC;
+}
+
+body {
+  background: var(--surface);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+/* Dark / HC get a subtle gradient; light stays clean */
+.theme-dark body {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A2D42 100%);
+}
+
+.theme-high-contrast body {
+  background: #000000;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Smooth transitions for theme changes — suppressed during initial load to prevent FOUC.
+   The blocking inline script in layout.tsx adds [data-theme-ready] after applying the
+   correct theme class, so transitions only fire on *subsequent* user-triggered changes. */
+html[data-theme-ready] * {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Mobile-responsive utilities */
+@layer utilities {
+  /* v0.48.0: Semantic status colors as utilities */
+  .text-status-success { color: var(--status-success); }
+  .text-status-warning { color: var(--status-warning); }
+  .text-status-error { color: var(--status-error); }
+  .text-status-info { color: var(--status-info); }
+  .text-status-pending { color: var(--status-pending); }
+  .text-status-neutral { color: var(--status-neutral); }
+  .bg-status-success { background-color: var(--status-success); }
+  .bg-status-warning { background-color: var(--status-warning); }
+  .bg-status-error { background-color: var(--status-error); }
+  .bg-status-info { background-color: var(--status-info); }
+  .bg-status-pending { background-color: var(--status-pending); }
+  .bg-status-neutral { background-color: var(--status-neutral); }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Touch-friendly tap targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobile nav animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Notification slide in from right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Toast animations - v0.27.62 */
+@keyframes toast-enter {
+  from { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes toast-exit {
+  from { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+  to { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  }
+}
+
+.animate-toast-enter { 
+  animation: toast-enter 0.3s ease-out; 
+}
+
+.animate-toast-exit { 
+  animation: toast-exit 0.2s ease-in forwards; 
+}
+
+/* Responsive font sizing */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Better touch scrolling */
+@supports (-webkit-overflow-scrolling: touch) {
+  .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================================================
+   REGULATORY DOCUMENT EDITOR STYLES
+   ICH E3 / AMA 11th Edition Compliant Formatting
+   ============================================================================ */
+
+.regulatory-document-editor {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  line-height: 1.5 !important;
+  color: #000000 !important;
+  text-align: justify !important;
+  hyphens: auto;
+  background-color: #ffffff !important;
+}
+
+/* Headings - ICH E3 Style */
+.regulatory-document-editor h1 {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 14pt !important;
+  font-weight: bold !important;
+  margin: 24pt 0 12pt 0 !important;
+  text-transform: uppercase !important;
+  color: #000000 !important;
+  page-break-after: avoid;
+}
+
+.regulatory-document-editor h2 {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  font-weight: bold !important;
+  margin: 18pt 0 6pt 0 !important;
+  color: #000000 !important;
+  page-break-after: avoid;
+}
+
+.regulatory-document-editor h3 {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  margin: 12pt 0 6pt 0 !important;
+  color: #000000 !important;
+  page-break-after: avoid;
+}
+
+.regulatory-document-editor h4 {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  font-weight: normal !important;
+  font-style: italic !important;
+  margin: 12pt 0 6pt 0 !important;
+  color: #000000 !important;
+}
+
+/* Paragraphs - AMA 11th Edition */
+.regulatory-document-editor p {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  line-height: 1.5 !important;
+  margin: 0 0 12pt 0 !important;
+  text-indent: 0 !important;
+  color: #000000 !important;
+  orphans: 2;
+  widows: 2;
+}
+
+/* Lists */
+.regulatory-document-editor ul,
+.regulatory-document-editor ol {
+  margin: 0 0 12pt 24pt !important;
+  padding: 0 !important;
+  color: #000000 !important;
+}
+
+.regulatory-document-editor li {
+  font-family: "Times New Roman", Times, Georgia, serif !important;
+  font-size: 12pt !important;
+  line-height: 1.5 !important;
+  margin: 0 0 6pt 0 !important;
+  color: #000000 !important;
+}
+
+.regulatory-document-editor ul > li {
+  list-style-type: disc !important;
+}
+
+.regulatory-document-editor ol > li {
+  list-style-type: decimal !important;
+}
+
+/* Tables - Regulatory Format */
+.regulatory-document-editor table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 12pt 0 !important;
+  font-size: 10pt !important;
+  page-break-inside: avoid;
+}
+
+.regulatory-document-editor th {
+  background-color: #f0f0f0 !important;
+  border: 1pt solid #000000 !important;
+  padding: 6pt 8pt !important;
+  text-align: left !important;
+  font-weight: bold !important;
+  vertical-align: bottom !important;
+  color: #000000 !important;
+}
+
+.regulatory-document-editor td {
+  border: 1pt solid #000000 !important;
+  padding: 4pt 8pt !important;
+  vertical-align: top !important;
+  color: #000000 !important;
+}
+
+/* Strong/Emphasis - AMA Style */
+.regulatory-document-editor strong {
+  font-weight: bold !important;
+  color: #000000 !important;
+}
+
+.regulatory-document-editor em {
+  font-style: italic !important;
+  color: #000000 !important;
+}
+
+/* Statistical notation - P values */
+.regulatory-document-editor em:has(+ em) {
+  /* For P values which should be italic per AMA */
+  font-style: italic !important;
+}
+
+/* Subscript/Superscript */
+.regulatory-document-editor sub {
+  font-size: 8pt !important;
+  vertical-align: sub !important;
+}
+
+.regulatory-document-editor sup {
+  font-size: 8pt !important;
+  vertical-align: super !important;
+}
+
+/* TFL Placeholders */
+.regulatory-document-editor .tfl-placeholder,
+.regulatory-document-editor p em:only-child {
+  /* Style for [Insert Table X] placeholders */
+  display: block;
+  border: 1pt dashed #666666;
+  background-color: #fafafa;
+  padding: 24pt;
+  margin: 12pt 0;
+  text-align: center;
+  font-style: italic;
+  color: #666666;
+}
+
+/* Focus state */
+.regulatory-document-editor:focus {
+  outline: none;
+}
+
+/* Caret color for editing */
+.regulatory-document-editor {
+  caret-color: #1E90FF;
+}
+
+/* ============================================================================
+   v136: ENHANCED ANIMATIONS & TRANSITIONS
+   Smooth, professional animations for demo polish
+   ============================================================================ */
+
+/* Keyframe animations */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* v0.27.65: Pipeline data flow animation */
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(400%);
+    opacity: 0;
+  }
+}
+
+/* Utility classes for animations */
+.animate-fade-in-up {
+  animation: fadeInUp 250ms ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 250ms ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 250ms ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 250ms ease-out;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Smooth transitions base */
+.transition-smooth {
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-smooth-slow {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-spring {
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Mobile-specific animation adjustments */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   v136: MOBILE RESPONSIVENESS IMPROVEMENTS
+   ============================================================================ */
+
+/* Better touch targets on mobile */
+@media (max-width: 768px) {
+  .touch-target-mobile {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Larger tap targets for buttons */
+  button, 
+  [role="button"],
+  a {
+    min-height: 44px;
+  }
+  
+  /* Reduce sidebar width on tablets */
+  .sidebar-responsive {
+    width: 220px;
+  }
+  
+  /* Stack forms vertically */
+  .form-responsive {
+    flex-direction: column;
+  }
+  
+  /* Hide non-essential elements */
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Full-width modals on mobile */
+  .modal-responsive {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  
+  /* Compact header on mobile */
+  .header-responsive {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Stack stat cards */
+  .stat-grid-responsive {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Reduce padding */
+  .content-responsive {
+    padding: 1rem;
+  }
+}
+
+/* Landscape phone optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .demo-overlay-responsive {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* ============================================================================
+   v141: ENHANCED MOBILE RESPONSIVE UTILITIES
+   ============================================================================ */
+
+/* Safe area padding for devices with notches */
+@supports (padding: env(safe-area-inset-top)) {
+  :root {
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+  }
+  
+  .safe-area-padding {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Touch-friendly spacing */
+@media (pointer: coarse) {
+  .touch-friendly {
+    padding: 0.75rem 1rem;
+  }
+  
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .text-responsive-h1 {
+    font-size: 1.5rem;
+  }
+  
+  .text-responsive-h2 {
+    font-size: 1.25rem;
+  }
+  
+  .text-responsive-body {
+    font-size: 0.875rem;
+  }
+}
+
+/* Prevent text overflow on mobile */
+.mobile-truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive container query support */
+@container (max-width: 640px) {
+  .container-sm-stack {
+    flex-direction: column;
+  }
+}
+
+/* Hide on specific breakpoints */
+@media (max-width: 640px) {
+  .hide-xs {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .hide-sm {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hide-md {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hide-lg {
+    display: none !important;
+  }
+}
+
+/* Show only on specific breakpoints */
+@media (min-width: 641px) {
+  .show-xs-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .show-sm-up {
+    display: none !important;
+  }
+}
+
+/* Responsive gap utilities */
+@media (max-width: 640px) {
+  .gap-responsive {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .gap-responsive {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .gap-responsive {
+    gap: 1.5rem;
+  }
+}
+
+/* Responsive padding utilities */
+@media (max-width: 640px) {
+  .p-responsive {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .p-responsive {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .p-responsive {
+    padding: 1.5rem;
+  }
+}
+
+/* ============================================================================
+   v136: FOCUS & ACCESSIBILITY IMPROVEMENTS
+   ============================================================================ */
+
+/* Better focus indicators */
+:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* v0.48.0: Text selection color */
+::selection {
+  background: rgba(30, 144, 255, 0.25);
+  color: var(--text-primary);
+}
+
+/* v0.48.0: Thin scrollbar variant for panels and sidebars */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+}
+
+/* v0.48.0: Smooth scroll for content areas */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* v0.48.0: Standard card hover lift */
+.card-hover {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* v0.48.0: Subtle pulse for loading indicators */
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.animate-subtle-pulse {
+  animation: subtlePulse 1.5s ease-in-out infinite;
+}
+
+/* v0.48.0: Consistent input focus transition */
+input:focus, textarea:focus, select:focus {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================================================
+   v0.44.0: SCROLL FADE EDGES — touch affordance for scrollable areas
+   Uses CSS masks + JS data-attributes from useScrollFade hook for smart fading.
+   ============================================================================ */
+
+/* --- Horizontal scroll fades --- */
+
+/* Right fade only (static fallback — always shows right hint) */
+.scroll-fade-right {
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%);
+  mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%);
+}
+
+/* JS-driven: remove right mask when scrolled to end */
+.scroll-fade-right[data-scroll-end="true"],
+.scroll-fade-right[data-can-scroll-right="false"] {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* JS-driven: Both edges fade when mid-scroll */
+.scroll-fade-x[data-can-scroll-left="true"][data-can-scroll-right="true"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+}
+
+/* JS-driven: Left edge only */
+.scroll-fade-x[data-can-scroll-left="true"][data-can-scroll-right="false"] {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 32px);
+  mask-image: linear-gradient(to right, transparent, black 32px);
+}
+
+/* JS-driven: Right edge only */
+.scroll-fade-x[data-can-scroll-left="false"][data-can-scroll-right="true"] {
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, black calc(100% - 32px), transparent);
+}
+
+/* JS-driven: No fades when content fits or at both ends */
+.scroll-fade-x[data-can-scroll-left="false"][data-can-scroll-right="false"] {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* --- Vertical scroll fades (for sidebars and lists) --- */
+
+.scroll-fade-y[data-can-scroll-up="true"][data-can-scroll-down="true"] {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent);
+}
+
+.scroll-fade-y[data-can-scroll-up="false"][data-can-scroll-down="true"] {
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
+}
+
+.scroll-fade-y[data-can-scroll-up="true"][data-can-scroll-down="false"] {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 24px);
+  mask-image: linear-gradient(to bottom, transparent, black 24px);
+}
+
+.scroll-fade-y[data-can-scroll-up="false"][data-can-scroll-down="false"] {
+  -webkit-mask-image: none;
+  mask-image: none;
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "next/dynamic": ["src/next-compat/dynamic.tsx"],
+      "next/image": ["src/next-compat/image.tsx"],
+      "next/navigation": ["src/next-compat/navigation.ts"],
+      "next/link": ["src/next-compat/link.tsx"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["src/tests", "src/lib/db", "src/lib/supabase/server.ts", "src/lib/supabase/middleware.ts"]
+}
