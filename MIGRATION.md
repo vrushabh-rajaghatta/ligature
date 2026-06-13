@@ -19,10 +19,20 @@ Source: `../ligature-v0_126_17` (Next.js 15 monolith, v0.126.17)
 - **Ported API domains** (URL contract preserved): auth (login/logout/session),
   health (+/db,/live,/ready), version, products, haqs, documents, submissions,
   safety, studies, users, audit.
+- **AI domain** (`backend/app/services/ai_service.py`, `rate_limiter.py`): Anthropic
+  httpx client + token-bucket limiter. Routes ported: ai/generate, health, usage,
+  models, prompts, inference, compliance-filter, validation-docs, rag/retrieve,
+  **haq-rag** (full RAG retrieval + synthesis + mock SSE stream),
+  **section-generate** (prompt builders + streaming; no-key → 500, frontend renders
+  demo content). Deferred: ai-section-prompts.ts enrichment library (952 lines,
+  live-key prompt quality only).
 
 ## Remaining route groups (port into `backend/app/routers/`, register in `__init__.py`)
 
-ai (haq-rag, section-generate, batch-section, generate, safety-intelligence),
+ai heavy routes still to port: batch-section, safety-intelligence, document-qc,
+ind-gap-analysis, research-intelligence, safety-signal, safety-narrative,
+usdm-protocol-assist, glp-data-integrity, stream-spike.
+Other domains:
 agents, tmf, qms, ctms, eln, glp, authoring, document-control, cross-module,
 collaboration, publishing, spl, stability, gateways, signatures, citations,
 usdm, idmp, adam, define-xml, cdisc-terminology, smart-submissions, biostats,
