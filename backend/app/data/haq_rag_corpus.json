@@ -1,0 +1,278 @@
+{
+ "HISTORICAL_RESPONSES": [
+  {
+   "id": "hist-001",
+   "questionText": "Please provide additional information regarding the critical process parameters and their acceptable ranges for the crystallization step.",
+   "responseText": "The critical process parameters (CPPs) for the crystallization step have been identified through a systematic development approach combining risk assessment and design of experiments (DoE). The following CPPs and their acceptable ranges have been established:\n\n1. **Crystallization Temperature**: 5-10°C\n   - Impact: Controls crystal form and particle size distribution\n   - Justification: DoE studies demonstrated consistent polymorphic form A within this range\n\n2. **Stirring Rate**: 200-300 rpm\n   - Impact: Affects nucleation rate and crystal growth\n   - Justification: Rates below 200 rpm resulted in larger crystals outside specification\n\n3. **Antisolvent Addition Rate**: 0.5-1.5 L/min\n   - Impact: Controls supersaturation and crystal habit\n   - Justification: Faster addition caused oiling out; slower addition extended process time without benefit\n\n4. **Seed Loading**: 0.1-0.5% w/w\n   - Impact: Ensures consistent nucleation\n   - Justification: Unseeded batches showed variable induction times\n\nThese parameters are controlled within proven acceptable ranges during routine manufacturing and monitored via in-process controls. Process validation data (Section 3.2.S.2.5) confirms consistent quality attributes across 15 commercial-scale batches.",
+   "applicationNumber": "NDA 214500",
+   "productName": "LIG-3021",
+   "source": "FDA",
+   "discipline": "CMC",
+   "outcome": "accepted",
+   "date": "2023-06-15",
+   "tags": [
+    "crystallization",
+    "CPP",
+    "process-parameters",
+    "DoE"
+   ],
+   "ctdSection": "3.2.S.2.4"
+  },
+  {
+   "id": "hist-002",
+   "questionText": "Justify the dissolution specification for the drug product based on clinical relevance and manufacturing experience.",
+   "responseText": "The dissolution specification of NLT 80% (Q) in 45 minutes was established based on the following scientific justification:\n\n**Clinical Relevance**\nAn in vitro-in vivo correlation (IVIVC) was established using data from the pivotal bioequivalence study (Study LIG-BE-001). The IVIVC analysis demonstrated that batches meeting the proposed specification achieve bioequivalent exposure to the reference formulation. Specifically:\n- Level A correlation: R² = 0.94\n- Mean predicted vs. observed Cmax: within 10%\n- Mean predicted vs. observed AUC: within 8%\n\n**Manufacturing Experience**\nAnalysis of 25 commercial-scale batches shows:\n- Mean dissolution at 45 min: 92.3%\n- Range: 85.1% - 98.7%\n- SD: 3.2%\n- All batches exceed 80% specification with >3σ margin\n\n**Comparison to Batch Data**\nWhile batch data shows higher dissolution values, the specification accounts for:\n1. Normal process variability\n2. Potential degradation over shelf life (stability data shows 3-5% decrease at 24 months)\n3. Site-to-site variability for future manufacturing expansion\n\nThe specification ensures clinical performance while providing appropriate manufacturing flexibility consistent with ICH Q6A principles.",
+   "applicationNumber": "NDA 213200",
+   "productName": "LIG-6100",
+   "source": "FDA",
+   "discipline": "CMC",
+   "outcome": "accepted",
+   "date": "2021-09-20",
+   "tags": [
+    "dissolution",
+    "specification",
+    "IVIVC",
+    "drug-product"
+   ],
+   "ctdSection": "3.2.P.5.1"
+  },
+  {
+   "id": "hist-003",
+   "questionText": "Please provide additional characterization data for the host cell proteins identified in the drug substance.",
+   "responseText": "Comprehensive characterization of host cell proteins (HCPs) in the drug substance has been performed using orthogonal analytical methods:\n\n**HCP Identification (LC-MS/MS)**\nA total of 47 HCPs were identified in purified drug substance lots. The top 10 HCPs by abundance account for 85% of total HCP content:\n\n| Protein | MW (kDa) | Relative Abundance | Risk Assessment |\n|---------|----------|-------------------|-----------------|\n| Elongation factor Tu | 43 | 18% | Low - no known immunogenicity |\n| 60 kDa chaperonin | 57 | 15% | Low - highly conserved |\n| DnaK | 69 | 12% | Low - common E. coli protein |\n| [Additional proteins listed in Appendix A]\n\n**Immunogenicity Risk Assessment**\nEach identified HCP was assessed for:\n1. Sequence homology to human proteins (BLAST analysis)\n2. Known immunogenicity in literature\n3. Abundance relative to clinical dose\n4. Historical clearance in manufacturing\n\nNo high-risk HCPs were identified. The total HCP level of <50 ng/mg is consistent with WHO guidelines and below levels associated with clinical immunogenicity in published studies.\n\n**Process Clearance**\nHCP clearance across purification steps demonstrates robust removal:\n- Post-Protein A: 1,500 ppm\n- Post-CEX: 180 ppm  \n- Post-AEX: 45 ppm (final)\n\nClearance validation data are provided in Section 3.2.S.2.5.",
+   "applicationNumber": "BLA 761089",
+   "productName": "LIG-MAB-01",
+   "source": "FDA",
+   "discipline": "CMC",
+   "outcome": "accepted",
+   "date": "2022-03-10",
+   "tags": [
+    "HCP",
+    "characterization",
+    "biologics",
+    "immunogenicity"
+   ],
+   "ctdSection": "3.2.S.3"
+  },
+  {
+   "id": "hist-004",
+   "questionText": "Provide a summary of dose modification patterns and their impact on efficacy in the pivotal oncology trial.",
+   "responseText": "**Dose Modification Summary - Study LIG-301**\n\n**Overall Dose Modification Rates**\nIn the ITT population (N=423):\n- Any dose modification: 34.5% (n=146)\n- Dose reduction: 22.2% (n=94)\n- Dose interruption: 18.4% (n=78)\n- Discontinuation due to AE: 8.5% (n=36)\n\n**Time to First Dose Modification**\n- Median time to first reduction: 8.4 weeks (95% CI: 6.2-10.1)\n- Most modifications occurred within first 12 weeks (78%)\n\n**Efficacy by Dose Modification Status**\n\n| Endpoint | No Modification (n=277) | Any Modification (n=146) | p-value |\n|----------|------------------------|-------------------------|---------|\n| ORR | 42.2% | 38.4% | 0.42 |\n| Median PFS | 7.8 mo | 7.2 mo | 0.31 |\n| Median OS | 14.2 mo | 13.8 mo | 0.48 |\n\n**Subgroup Analysis by Dose Intensity**\nPatients maintaining ≥80% relative dose intensity (RDI) showed similar efficacy to those with <80% RDI:\n- ORR: 41.5% vs 38.9% (p=0.56)\n- Median PFS: 7.6 mo vs 7.4 mo (p=0.62)\n\n**Conclusion**\nDose modifications did not significantly impact efficacy outcomes. The dose modification algorithm successfully managed tolerability while preserving clinical benefit. Forest plots for key subgroups are provided in Appendix B.",
+   "applicationNumber": "NDA 215100",
+   "productName": "Ligrastinib",
+   "source": "FDA",
+   "discipline": "Clinical",
+   "outcome": "accepted",
+   "date": "2023-08-15",
+   "tags": [
+    "dose-modification",
+    "efficacy",
+    "oncology",
+    "subgroup-analysis"
+   ],
+   "ctdSection": "5.3.5.1"
+  },
+  {
+   "id": "hist-005",
+   "questionText": "Please clarify the handling of missing data in the primary efficacy analysis.",
+   "responseText": "**Missing Data Handling - Primary Efficacy Analysis**\n\n**Overview**\nThe primary analysis used multiple imputation (MI) under the missing at random (MAR) assumption. This approach was pre-specified in the Statistical Analysis Plan (Section 4.3.2).\n\n**Missing Data Patterns**\n- Primary endpoint assessable: 94.2% (398/423)\n- Missing primary endpoint: 5.8% (25/423)\n  - Withdrawal of consent: 12 patients\n  - Lost to follow-up: 8 patients\n  - Death before assessment: 5 patients\n\n**Imputation Methodology**\nMultiple imputation was performed using the following approach:\n1. **Imputation model**: Multivariate normal regression including:\n   - Treatment arm\n   - Baseline ECOG status\n   - Prior lines of therapy\n   - Baseline tumor burden\n   - Geographic region\n\n2. **Number of imputations**: 50 datasets\n3. **Analysis**: Primary model fitted to each imputed dataset\n4. **Combination**: Rubin's rules for point estimate and variance\n\n**Sensitivity Analyses**\nPer ICH E9(R1) guidance, the following sensitivity analyses were conducted:\n\n| Method | Treatment Effect (OR) | 95% CI | p-value |\n|--------|----------------------|--------|---------|\n| Primary (MI-MAR) | 2.34 | 1.65-3.32 | <0.001 |\n| Complete case | 2.41 | 1.69-3.44 | <0.001 |\n| LOCF | 2.28 | 1.61-3.23 | <0.001 |\n| Tipping point | Robust to δ=0.5 | — | — |\n| Pattern mixture | 2.31 | 1.58-3.38 | <0.001 |\n\n**Conclusion**\nResults were consistent across all sensitivity analyses, supporting the robustness of the primary efficacy conclusion under different missing data assumptions.",
+   "applicationNumber": "NDA 214800",
+   "productName": "LIG-4400",
+   "source": "FDA",
+   "discipline": "Biometrics",
+   "outcome": "accepted",
+   "date": "2022-11-08",
+   "tags": [
+    "missing-data",
+    "multiple-imputation",
+    "sensitivity-analysis",
+    "ICH-E9"
+   ],
+   "ctdSection": "5.3.5.1"
+  },
+  {
+   "id": "hist-006",
+   "questionText": "Discuss the relevance of hepatocellular adenomas observed in the rat carcinogenicity study to humans.",
+   "responseText": "**Human Relevance Assessment - Hepatocellular Adenomas in Rats**\n\n**Study Findings**\nIn the 2-year rat carcinogenicity study, hepatocellular adenomas were observed in high-dose males:\n- Control: 2/50 (4%)\n- Low dose: 3/50 (6%)\n- Mid dose: 4/50 (8%)\n- High dose: 12/50 (24%)*\n*Statistically significant vs. control (p<0.01)\n\n**Mode of Action Analysis**\nMechanistic studies support a rodent-specific, non-genotoxic mode of action:\n\n1. **CAR/PXR Activation**\n   - LIG-2847 is a potent activator of rodent CAR (EC50 = 0.8 μM)\n   - Human CAR activation: minimal (EC50 >100 μM)\n   - Species difference confirmed by in vitro hepatocyte studies\n\n2. **Hepatocyte Proliferation**\n   - 14-day rat study: 4.2-fold increase in BrdU labeling (high dose)\n   - 14-day study in humanized CAR/PXR mice: no proliferation increase\n\n3. **Genotoxicity**\n   - Ames test: Negative\n   - In vitro micronucleus: Negative\n   - In vivo comet assay (liver): Negative\n\n**Weight of Evidence**\nBased on IPCS/WHO Framework criteria, the hepatocellular findings are considered:\n- Mode of action: CAR-mediated hepatocyte proliferation\n- Human relevance: Not relevant (qualitative species difference in CAR activation)\n\n**Regulatory Precedent**\nThis conclusion is consistent with FDA and ICH S1B guidance recognizing CAR-mediated rodent liver tumors as not relevant to human risk assessment (e.g., phenobarbital, pregabalin).\n\n**Recommendation**\nNo additional monitoring or labeling is warranted for hepatic neoplasia based on the rodent-specific mechanism.",
+   "applicationNumber": "NDA 215300",
+   "productName": "LIG-2847",
+   "source": "FDA",
+   "discipline": "Nonclinical",
+   "outcome": "accepted",
+   "date": "2023-02-20",
+   "tags": [
+    "carcinogenicity",
+    "human-relevance",
+    "CAR-activation",
+    "hepatocellular"
+   ],
+   "ctdSection": "2.6.6"
+  },
+  {
+   "id": "hist-007",
+   "questionText": "Provide additional information on the cardiovascular safety profile, specifically regarding QT prolongation potential.",
+   "responseText": "**Cardiovascular Safety Assessment - QT Prolongation**\n\n**Nonclinical Evaluation**\n\n*In Vitro hERG Assay*\n- IC50: 28.4 μM (>300-fold clinical Cmax free)\n- Therapeutic margin: Adequate\n\n*In Vivo Telemetry (Dog)*\nNo QTc prolongation at doses up to 30 mg/kg (25x clinical exposure)\n\n**Thorough QT Study (Study LIG-TQT-001)**\n\n*Design*\n- Randomized, double-blind, placebo- and positive-controlled\n- 4-period crossover in 48 healthy subjects\n- Doses: therapeutic (100 mg) and supratherapeutic (400 mg)\n- Positive control: moxifloxacin 400 mg\n\n*Results*\n| Treatment | ΔΔQTcF (ms) | Upper 90% CI |\n|-----------|-------------|--------------|\n| LIG 100 mg | 2.1 | 4.8 |\n| LIG 400 mg | 5.3 | 8.1 |\n| Moxifloxacin | 12.4 | 15.1 |\n\n*Concentration-QTc Analysis*\n- Slope: 0.0043 ms per ng/mL\n- Predicted ΔΔQTcF at observed Cmax (800 ng/mL): 3.4 ms\n- No subjects with QTcF >480 ms or ΔQTcF >30 ms\n\n**Integrated Clinical Safety**\nAcross Phase 1-3 studies (N=1,847):\n- QTcF >500 ms: 0 patients\n- ΔQTcF >60 ms: 2 patients (0.1%), both with confounding factors\n\n**Conclusion**\nLIG-2847 does not cause clinically meaningful QT prolongation at therapeutic or supratherapeutic exposures. The data support inclusion of standard cardiovascular language in labeling without specific QT warnings.",
+   "applicationNumber": "NDA 215300",
+   "productName": "LIG-2847",
+   "source": "FDA",
+   "discipline": "Clinical",
+   "outcome": "accepted",
+   "date": "2023-03-15",
+   "tags": [
+    "QT-prolongation",
+    "cardiovascular",
+    "TQT",
+    "hERG"
+   ],
+   "ctdSection": "2.7.4"
+  },
+  {
+   "id": "hist-008",
+   "questionText": "Please revise the Warnings and Precautions section to include language regarding hepatotoxicity based on clinical trial findings.",
+   "responseText": "**Proposed Hepatotoxicity Labeling Language**\n\nThe following language is proposed for Section 5.1 (Warnings and Precautions) of the USPI:\n\n---\n\n**5.1 Hepatotoxicity**\n\nHepatotoxicity, including cases of drug-induced liver injury, has been reported in patients treated with [DRUG NAME].\n\nIn clinical trials, ALT elevations >3× ULN occurred in 8.2% of patients receiving [DRUG NAME] compared to 2.1% receiving placebo. ALT elevations >5× ULN occurred in 3.4% vs 0.5%, respectively. Cases meeting Hy's Law criteria (ALT >3× ULN with bilirubin >2× ULN) occurred in 0.4% of [DRUG NAME]-treated patients.\n\nMedian time to onset of hepatic laboratory abnormalities was 6 weeks (range: 1-24 weeks). Most events resolved with dose modification or discontinuation.\n\nMonitor liver function tests (ALT, AST, and total bilirubin) prior to initiation of [DRUG NAME], every 2 weeks for the first 3 months, monthly for the next 3 months, and periodically thereafter. \n\nWithhold, reduce dose, or permanently discontinue [DRUG NAME] based on severity of hepatic laboratory abnormalities [see Dosage and Administration (2.3)].\n\n---\n\n**Supporting Rationale**\n- Incidence data derived from pooled Phase 2/3 safety database\n- Monitoring frequency based on observed time to onset\n- Dose modification guidance aligned with Section 2.3\n\nThis language is consistent with FDA Guidance \"Drug-Induced Liver Injury: Premarketing Clinical Evaluation\" (July 2009).",
+   "applicationNumber": "NDA 215847",
+   "productName": "LIG-2847",
+   "source": "FDA",
+   "discipline": "Labeling",
+   "outcome": "accepted",
+   "date": "2024-01-10",
+   "tags": [
+    "hepatotoxicity",
+    "labeling",
+    "warnings",
+    "DILI"
+   ],
+   "ctdSection": "1.14.1"
+  },
+  {
+   "id": "hist-009",
+   "questionText": "Provide justification for the proposed shelf life based on available stability data.",
+   "responseText": "**Shelf Life Justification**\n\n**Available Stability Data**\nLong-term stability data (25°C/60% RH) are available through 24 months for three primary stability batches:\n\n| Batch | 0 mo | 6 mo | 12 mo | 18 mo | 24 mo |\n|-------|------|------|-------|-------|-------|\n| Assay (%) |\n| PSB-001 | 100.2 | 99.8 | 99.3 | 98.9 | 98.4 |\n| PSB-002 | 99.8 | 99.5 | 99.1 | 98.7 | 98.2 |\n| PSB-003 | 100.1 | 99.7 | 99.2 | 98.8 | 98.3 |\n\n**Statistical Analysis**\nLinear regression analysis per ICH Q1E:\n- Pooled slope: -0.075%/month\n- 95% CI for 24-month predicted mean: 97.8-98.6%\n- Lower 95% confidence limit at 36 months: 96.8%\n- Specification: NLT 95.0%\n\n**Accelerated Stability (40°C/75% RH)**\nNo significant degradation through 6 months, supporting ambient storage conditions.\n\n**Conclusion**\nBased on the statistical analysis demonstrating that quality attributes remain within specifications throughout the proposed shelf life with appropriate margin, a shelf life of 24 months is justified when stored at or below 25°C.",
+   "applicationNumber": "NDA 214100",
+   "productName": "LIG-1000",
+   "source": "FDA",
+   "discipline": "CMC",
+   "outcome": "accepted",
+   "date": "2022-05-18",
+   "tags": [
+    "stability",
+    "shelf-life",
+    "ICH-Q1E",
+    "drug-product"
+   ],
+   "ctdSection": "3.2.P.8"
+  },
+  {
+   "id": "hist-010",
+   "questionText": "Clarify the statistical methods used for the primary endpoint analysis and provide sensitivity analyses.",
+   "responseText": "**Statistical Methods - Primary Endpoint Analysis**\n\n**Primary Analysis Method**\nThe primary endpoint (overall response rate) was analyzed using:\n- Logistic regression model with treatment as fixed effect\n- Stratification factors: ECOG status, geographic region, prior therapy\n- Two-sided α = 0.05\n\n**Model Specification**\nlogit(P(response)) = β₀ + β₁(treatment) + β₂(ECOG) + β₃(region) + β₄(prior_therapy)\n\n**Results**\n| Parameter | Estimate | SE | OR | 95% CI | p-value |\n|-----------|----------|-----|-----|--------|---------|\n| Treatment | 0.851 | 0.182 | 2.34 | 1.65-3.32 | <0.001 |\n| ECOG (1 vs 0) | -0.423 | 0.156 | 0.65 | 0.48-0.89 | 0.007 |\n\n**Pre-specified Sensitivity Analyses**\n\n1. **Unstratified analysis**: OR = 2.38 (95% CI: 1.68-3.37)\n2. **Per-protocol population**: OR = 2.45 (95% CI: 1.71-3.51)\n3. **Excluding protocol deviations**: OR = 2.31 (95% CI: 1.62-3.29)\n4. **CMH test**: OR = 2.36 (95% CI: 1.66-3.35)\n\n**Multiplicity Adjustment**\nSecondary endpoints were tested in a hierarchical fixed-sequence procedure to control family-wise Type I error. All endpoints in the testing sequence achieved statistical significance.\n\n**Conclusion**\nThe primary analysis demonstrates statistically significant and clinically meaningful improvement in ORR. Results are robust across sensitivity analyses.",
+   "applicationNumber": "NDA 215100",
+   "productName": "Ligrastinib",
+   "source": "FDA",
+   "discipline": "Biometrics",
+   "outcome": "accepted",
+   "date": "2023-07-22",
+   "tags": [
+    "statistics",
+    "primary-endpoint",
+    "sensitivity-analysis",
+    "logistic-regression"
+   ],
+   "ctdSection": "5.3.5.1"
+  },
+  {
+   "id": "hist-011",
+   "questionText": "Describe the comparability assessment between drug substance manufactured at different sites.",
+   "responseText": "**Site Comparability Assessment**\n\n**Background**\nDrug substance manufacturing was transferred from Site A (clinical supply) to Site B (commercial) using a validated technology transfer protocol.\n\n**Comparability Protocol**\nAssessment included:\n1. Process parameter comparison\n2. In-process control comparison\n3. Release testing comparison\n4. Extended characterization\n5. Stability comparison\n\n**Analytical Comparability**\n\n| Attribute | Site A (n=5) | Site B (n=5) | Acceptance | Result |\n|-----------|-------------|-------------|------------|--------|\n| Assay (%) | 99.2 ± 0.4 | 99.4 ± 0.3 | 98.0-102.0 | Pass |\n| Purity (%) | 99.5 ± 0.2 | 99.6 ± 0.2 | ≥99.0 | Pass |\n| Impurity A (%) | 0.12 ± 0.02 | 0.11 ± 0.02 | ≤0.3 | Pass |\n| Particle size D50 (μm) | 45 ± 5 | 47 ± 4 | 30-70 | Pass |\n| Residual solvent (ppm) | 420 ± 50 | 390 ± 45 | ≤890 | Pass |\n\n**Extended Characterization**\n- Polymorphic form: Form A confirmed at both sites (XRPD)\n- Solid-state NMR: Equivalent spectra\n- DSC/TGA: Equivalent thermal profiles\n- Specific surface area: 2.1 vs 2.3 m²/g (within variability)\n\n**Stability Comparison**\n6-month comparative stability (25°C/60% RH) shows equivalent degradation profiles with overlapping confidence intervals for all attributes.\n\n**Conclusion**\nComprehensive analytical and stability comparisons demonstrate that drug substance from Site B is comparable to Site A material. No impact on product quality, safety, or efficacy is expected.",
+   "applicationNumber": "NDA 214500",
+   "productName": "LIG-3021",
+   "source": "FDA",
+   "discipline": "CMC",
+   "outcome": "accepted",
+   "date": "2023-04-12",
+   "tags": [
+    "comparability",
+    "site-transfer",
+    "technology-transfer",
+    "drug-substance"
+   ],
+   "ctdSection": "3.2.S.2.6"
+  },
+  {
+   "id": "hist-012",
+   "questionText": "Provide the pediatric study plan or justification for waiver of pediatric studies.",
+   "responseText": "**Pediatric Study Plan**\n\n**Disease Context**\nNon-small cell lung cancer (NSCLC) with KRAS G12C mutation is exceedingly rare in pediatric patients:\n- Estimated pediatric NSCLC incidence: <1 per million children\n- KRAS G12C mutation prevalence: ~13% of adult NSCLC\n- No confirmed pediatric KRAS G12C NSCLC cases in published literature\n\n**Waiver Request**\nA full waiver of pediatric studies is requested under 21 CFR 314.55(c)(2) based on:\n\n1. **Rare disease in pediatrics**: NSCLC is not a pediatric disease. The molecular target (KRAS G12C) has not been identified in pediatric lung cancers.\n\n2. **Lack of meaningful therapeutic benefit**: No pediatric population would benefit from this treatment given the absence of the disease and molecular target.\n\n3. **Impracticability of studies**: \n   - Insufficient patient population to conduct meaningful studies\n   - Estimated accrual: <1 patient globally over 5 years\n   - No existing pediatric NSCLC trial infrastructure\n\n**Commitment**\nShould evidence emerge of KRAS G12C-mutant malignancies in pediatric patients, the Sponsor commits to:\n- Monitoring emerging literature\n- Consulting with FDA regarding potential pediatric investigation\n- Providing drug for compassionate use if appropriate\n\n**Conclusion**\nBased on the absence of the disease in the pediatric population and lack of the molecular target, a full waiver of pediatric studies is scientifically justified under PREA requirements.",
+   "applicationNumber": "NDA 215100",
+   "productName": "Ligrastinib",
+   "source": "FDA",
+   "discipline": "Clinical",
+   "outcome": "accepted",
+   "date": "2023-06-01",
+   "tags": [
+    "pediatric",
+    "waiver",
+    "PREA",
+    "PSP"
+   ],
+   "ctdSection": "1.14.2"
+  },
+  {
+   "id": "hist-013",
+   "questionText": "Please provide an assessment of the hepatotoxicity signals observed in the post-marketing setting and describe your pharmacovigilance plan.",
+   "responseText": "**Hepatotoxicity Signal Assessment**\n\n**Signal Overview**\nPost-marketing surveillance has identified [DATA NEEDED: N] cases of hepatic adverse events, including [DATA NEEDED: N] cases of severe drug-induced liver injury (DILI). The reporting rate is [DATA NEEDED: rate] per 100,000 patient-years of exposure.\n\n**Case Characterization**\nAnalysis of reported cases reveals:\n- Time to onset: Median 6 weeks (range: 2-16 weeks)\n- Pattern: Hepatocellular (65%), Cholestatic (25%), Mixed (10%)\n- Risk factors identified: Advanced age (>65), concomitant hepatotoxic medications, pre-existing liver disease\n- Outcomes: Recovery upon discontinuation in 85% of cases\n\n**Drug-Drug Interaction Assessment**\nCases with concomitant medications were analyzed:\n- Strong CYP3A4 inhibitors associated with 2.3-fold increased risk\n- Ursodeoxycholic acid co-administration identified in 4 cases - potential metabolic pathway involvement under investigation\n\n**Risk Minimization Measures**\n1. Label updated to include hepatotoxicity warning\n2. Baseline and periodic LFT monitoring recommended\n3. Contraindication for severe hepatic impairment added\n4. Dear Healthcare Provider Letter distributed\n\n**Pharmacovigilance Plan**\nEnhanced monitoring includes:\n- Targeted follow-up of all hepatic SAE reports\n- Quarterly signal detection reviews\n- Registry study enrollment ongoing (target N=500)\n- Signal refinement protocol implemented per ICH E2E",
+   "applicationNumber": "NDA 216800",
+   "productName": "LIG-2847",
+   "source": "FDA",
+   "discipline": "Safety",
+   "outcome": "accepted",
+   "date": "2024-11-20",
+   "tags": [
+    "hepatotoxicity",
+    "DILI",
+    "pharmacovigilance",
+    "drug-interaction",
+    "safety-signal"
+   ],
+   "ctdSection": "2.7.4"
+  },
+  {
+   "id": "hist-014",
+   "questionText": "Describe the methodology used for signal detection and the criteria for signal validation in your safety database.",
+   "responseText": "**Signal Detection Methodology**\n\n**Data Mining Approach**\nLigature employs a multi-component signal detection system:\n\n1. **Disproportionality Analysis**\n   - Proportional Reporting Ratio (PRR) with threshold ≥2.0\n   - Reporting Odds Ratio (ROR) for sensitivity analysis\n   - Information Component (IC025) using Bayesian approach\n   - Automated monthly screening of global safety database\n\n2. **Pattern Recognition (AI-Enhanced)**\n   - Machine learning model trained on validated signals\n   - Clustering analysis for case grouping\n   - Natural language processing of case narratives\n   - Temporal pattern detection for emerging clusters\n\n3. **External Data Integration**\n   - FDA FAERS data incorporated quarterly\n   - EMA EudraVigilance access for EU signals\n   - Literature monitoring via automated PubMed alerts\n   - Social media monitoring for emerging concerns\n\n**Signal Validation Criteria**\nA signal proceeds to validation when:\n- PRR ≥2.0 AND case count ≥3 (per CIOMS guidelines)\n- OR: IC025 >0 (statistically significant)\n- OR: Expert judgment based on biological plausibility\n\n**Signal Evaluation Process**\nValidated signals undergo:\n1. Medical review by qualified physician\n2. Causality assessment using WHO-UMC criteria\n3. Literature review for biological plausibility\n4. Benefit-risk assessment update\n5. Regulatory notification if warranted\n\nSignal reports are generated within 72 hours of detection and presented at weekly safety review meetings.",
+   "applicationNumber": "BLA 761456",
+   "productName": "LIG-MAB-02",
+   "source": "EMA",
+   "discipline": "Safety",
+   "outcome": "accepted",
+   "date": "2024-08-05",
+   "tags": [
+    "signal-detection",
+    "data-mining",
+    "pharmacovigilance",
+    "AI",
+    "disproportionality"
+   ],
+   "ctdSection": "1.8.2"
+  },
+  {
+   "id": "hist-015",
+   "questionText": "Please provide the expedited safety report requirements met for the serious hepatic events and confirm timeline compliance.",
+   "responseText": "**Expedited Safety Reporting Compliance - Hepatic Events**\n\n**Regulatory Requirements Met**\nAll serious hepatic adverse events have been reported in compliance with:\n- ICH E2D guidelines for expedited reporting\n- 21 CFR 312.32 (US IND reporting)\n- 21 CFR 314.80 (US NDA reporting)\n- Regulation (EC) 726/2004 Article 28 (EMA)\n- PMDA notification requirements (Japan)\n\n**Reporting Timeline Compliance**\n\n| Region | Requirement | Actual Performance | Compliance |\n|--------|-------------|-------------------|------------|\n| FDA | 15 calendar days | Mean: 8.2 days | 100% |\n| EMA | 15 calendar days | Mean: 7.8 days | 100% |\n| PMDA | 15 calendar days | Mean: 9.1 days | 100% |\n| Health Canada | 15 calendar days | Mean: 8.5 days | 100% |\n\n**Case Processing Metrics**\nFor the hepatotoxicity cluster (N=[DATA NEEDED]):\n- Day 0 awareness: Case receipt\n- Day 1-2: Medical review and causality assessment\n- Day 3-5: Quality review and narrative finalization\n- Day 6-8: Regulatory submission\n\n**PMDA-Specific Actions (Japan Cluster)**\nFor the emerging Japan hepatotoxicity cluster:\n- 4 cases received within 72-hour window\n- All submitted within 7 days of receipt\n- Expedited PMDA teleconference scheduled\n- Japanese labeling update in preparation\n\n**Documentation**\nComplete expedited reports with follow-up information available in EVDAS and FDA FAERS. Tracking log with submission confirmations maintained per SOP-PV-003.",
+   "applicationNumber": "NDA 216800",
+   "productName": "LIG-2847",
+   "source": "PMDA",
+   "discipline": "Safety",
+   "outcome": "accepted",
+   "date": "2025-01-10",
+   "tags": [
+    "expedited-reporting",
+    "hepatotoxicity",
+    "PMDA",
+    "Japan",
+    "compliance",
+    "timeline"
+   ],
+   "ctdSection": "1.6"
+  }
+ ]
+}

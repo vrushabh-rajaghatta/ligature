@@ -5,6 +5,7 @@ route). The remaining GET routes return the same static GxP/validation
 manifests the Next routes did. Heavy generators (haq-rag, section-generate,
 batch-section, document-qc, safety-intelligence) live in ai_generators.py.
 """
+import json
 import logging
 import time
 
@@ -18,7 +19,9 @@ from app.core.rate_limiter import (
     rate_limit_headers,
 )
 from app.core.security import require_auth
-from app.services import ai_service
+from app.services import ai_service, haq_rag
+
+SSE_HEADERS = {"Cache-Control": "no-cache", "Connection": "keep-alive"}
 
 logger = logging.getLogger("ligature.ai")
 
@@ -105,6 +108,136 @@ async def generate_status():
         "capabilities": [
             "haq-response", "safety-narrative", "document-section", "signal-summary",
             "document-qc", "labeling", "protocol-authoring",
+        ],
+    }
+
+
+# ── /api/ai/haq-rag ──────────────────────────────────────────────────────────
+
+
+def _sse(payload: dict) -> bytes:
+    return f"data: {json.dumps(payload)}\n\n".encode()
+
+
+@router.post("/haq-rag")
+async def haq_rag_synthesize(request: Request):
+    require_auth(request)
+    rl = check_rate_limit(request, AI_RATE_LIMITS["standard"])
+    if not rl.allowed:
+        return JSONResponse(
+            rate_limit_body(rl), status_code=429, headers=rate_limit_headers(rl, AI_RATE_LIMITS["standard"])
+        )
+
+    body = await request.json()
+    if not body.get("questionText"):
+        return JSONResponse({"error": "questionText is required"}, status_code=400)
+
+    similar = haq_rag.find_similar_responses(body, body.get("topK") or 5)
+
+    # generateDraft === false → return ranked similar responses as JSON (no stream)
+    if body.get("generateDraft") is False:
+        payload = {
+            "similarResponses": [
+                {
+                    "id": r["response"]["id"],
+                    "questionText": r["response"]["questionText"],
+                    "responseText": r["response"]["responseText"],
+                    "applicationNumber": r["response"]["applicationNumber"],
+                    "productName": r["response"]["productName"],
+                    "source": r["response"]["source"],
+                    "discipline": r["response"]["discipline"],
+                    "outcome": r["response"]["outcome"],
+                    "date": r["response"]["date"],
+                    "score": r["score"],
+                    "matchedTerms": r["matchedTerms"],
+                }
+                for r in similar
+            ]
+        }
+        return JSONResponse(payload, headers={"X-Cache": "MISS"})
+
+    metadata_event = _sse(
+        {
+            "type": "metadata",
+            "similarResponses": [
+                {
+                    "id": r["response"]["id"],
+                    "questionText": r["response"]["questionText"][:100] + "...",
+                    "applicationNumber": r["response"]["applicationNumber"],
+                    "productName": r["response"]["productName"],
+                    "discipline": r["response"]["discipline"],
+                    "outcome": r["response"]["outcome"],
+                    "score": round(r["score"]),
+                    "matchedTerms": r["matchedTerms"][:5],
+                }
+                for r in similar
+            ],
+        }
+    )
+
+    api_key = ai_service.get_api_key()
+
+    if api_key:
+        system, user = haq_rag.build_synthesis_prompt(body, similar)
+
+        async def real_stream():
+            yield metadata_event
+            try:
+                async for chunk in ai_service.stream(
+                    prompt=user, system=system, max_tokens=4000
+                ):
+                    yield chunk
+            except Exception as exc:  # noqa: BLE001
+                yield _sse({"type": "error", "error": {"message": str(exc)}})
+
+        return StreamingResponse(real_stream(), media_type="text/event-stream", headers=SSE_HEADERS)
+
+    # Mock fallback stream (no API key)
+    mock_content = haq_rag.generate_mock_response(body, similar)
+
+    def mock_stream():
+        yield metadata_event
+        yield _sse({"type": "message_start", "message": {"id": "mock-msg", "type": "message", "role": "assistant", "model": "mock-fallback"}})
+        yield _sse({"type": "content_block_start", "index": 0, "content_block": {"type": "text", "text": ""}})
+        words = __import__("re").split(r"(\s+)", mock_content)
+        chunk = ""
+        chunk_word_count = 0
+        for i, word in enumerate(words):
+            chunk += word
+            if word.strip():
+                chunk_word_count += 1
+            if chunk_word_count >= 4 or i == len(words) - 1:
+                yield _sse({"type": "content_block_delta", "index": 0, "delta": {"type": "text_delta", "text": chunk}})
+                chunk = ""
+                chunk_word_count = 0
+        yield _sse({"type": "content_block_stop", "index": 0})
+        yield _sse({"type": "message_delta", "delta": {"stop_reason": "end_turn"}})
+        yield _sse({"type": "message_stop"})
+        yield b"data: [DONE]\n\n"
+
+    return StreamingResponse(mock_stream(), media_type="text/event-stream", headers=SSE_HEADERS)
+
+
+@router.get("/haq-rag")
+async def haq_rag_stats():
+    stats = {"totalResponses": len(haq_rag.HISTORICAL_RESPONSES), "byDiscipline": {}, "bySource": {}, "byOutcome": {}}
+    for r in haq_rag.HISTORICAL_RESPONSES:
+        stats["byDiscipline"][r["discipline"]] = stats["byDiscipline"].get(r["discipline"], 0) + 1
+        stats["bySource"][r["source"]] = stats["bySource"].get(r["source"], 0) + 1
+        stats["byOutcome"][r["outcome"]] = stats["byOutcome"].get(r["outcome"], 0) + 1
+    return {
+        "stats": stats,
+        "responses": [
+            {
+                "id": r["id"],
+                "questionText": r["questionText"][:100] + "...",
+                "discipline": r["discipline"],
+                "source": r["source"],
+                "outcome": r["outcome"],
+                "date": r["date"],
+                "tags": r.get("tags"),
+            }
+            for r in haq_rag.HISTORICAL_RESPONSES
         ],
     }
 
