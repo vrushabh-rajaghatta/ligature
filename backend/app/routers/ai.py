@@ -19,7 +19,7 @@ from app.core.rate_limiter import (
     rate_limit_headers,
 )
 from app.core.security import require_auth
-from app.services import ai_service, haq_rag
+from app.services import ai_service, haq_rag, section_gen
 
 SSE_HEADERS = {"Cache-Control": "no-cache", "Connection": "keep-alive"}
 
@@ -238,6 +238,78 @@ async def haq_rag_stats():
                 "tags": r.get("tags"),
             }
             for r in haq_rag.HISTORICAL_RESPONSES
+        ],
+    }
+
+
+# ── /api/ai/section-generate ─────────────────────────────────────────────────
+
+
+@router.post("/section-generate")
+async def section_generate(request: Request):
+    require_auth(request)
+    # Parity: returns 500 immediately when no key (frontend renders demo content)
+    if not ai_service.get_api_key():
+        return JSONResponse(
+            {"error": "AI features require configuration. Please add ANTHROPIC_API_KEY to enable AI-powered responses."},
+            status_code=500,
+        )
+
+    rl = check_rate_limit(request, AI_RATE_LIMITS["standard"])
+    if not rl.allowed:
+        return JSONResponse(
+            rate_limit_body(rl), status_code=429, headers=rate_limit_headers(rl, AI_RATE_LIMITS["standard"])
+        )
+
+    body = await request.json()
+    section = body.get("section")
+    document_type = body.get("documentType")
+    context = body.get("context")
+    if not section or not document_type or not context:
+        return JSONResponse(
+            {"error": "Missing required fields: section, documentType, context"}, status_code=400
+        )
+
+    sources = body.get("sources") or []
+    options = body.get("options") or {}
+    system_prompt = section_gen.build_system_prompt(document_type, section["number"], section["title"])
+    user_prompt = section_gen.build_user_prompt(section, document_type, context, sources)
+
+    metadata_event = _sse(
+        {
+            "type": "metadata",
+            "apiVersion": "v0.32.9-fix",
+            "section": section,
+            "documentCategory": section_gen.get_document_category(document_type, section["number"]),
+            "sourcesUsed": len(sources),
+        }
+    )
+
+    async def gen_stream():
+        yield metadata_event
+        try:
+            async for chunk in ai_service.stream(
+                prompt=user_prompt, system=system_prompt, max_tokens=options.get("maxTokens", 4000)
+            ):
+                yield chunk
+            yield b"data: [DONE]\n\n"
+        except Exception as exc:  # noqa: BLE001
+            yield _sse({"type": "error", "error": {"message": str(exc)}})
+
+    return StreamingResponse(gen_stream(), media_type="text/event-stream", headers=SSE_HEADERS)
+
+
+@router.get("/section-generate")
+async def section_generate_status():
+    has_key = bool(ai_service.get_api_key())
+    return {
+        "status": "ready" if has_key else "missing_api_key",
+        "model": "claude-sonnet-4-6",
+        "version": "v0.32.9",
+        "capabilities": [
+            "streaming", "document-type-aware", "ich-m4q-quality", "ich-m4s-nonclinical",
+            "ich-m4e-clinical", "ich-e3-csr", "dsur-pbrer", "uspi-plr", "smpc-qrd",
+            "rmp-rems", "ama-11th",
         ],
     }
 
